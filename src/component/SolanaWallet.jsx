@@ -26,7 +26,6 @@ function SolanaWallet({ mnemonic }) {
     const secret = nacl.sign.keyPair.fromSeed(derivedSeed).secretKey;
     const keyPair = Keypair.fromSecretKey(secret);
     console.log(keyPair.publicKey);
-    setIdx(idx + 1);
     setWallets([
       ...wallets,
       { publicKey: keyPair.publicKey, privateKeys: encodeBase58(secret) },
@@ -34,8 +33,9 @@ function SolanaWallet({ mnemonic }) {
     toast("🦄 Wallet created successfully");
     setPrivateKeyVisible((prevState) => ({
       ...prevState,
-      [idx]: false,
+      [idx]: false, // Use the current idx value from state to initialize visibility
     }));
+    setIdx(idx + 1);
   };
 
   const deleteWallet = (currIdx) => {
@@ -62,13 +62,13 @@ function SolanaWallet({ mnemonic }) {
             <p>{wallet.publicKey.toBase58()}</p>
             <h5>Private Key:</h5>
             <p>
-              {" "}
               {privateKeyVisible[idx] ? wallet.privateKeys : "***************"}
               <FaRegEye
                 onClick={() =>
-                  setPrivateKeyVisible(
-                    prev(...prev, ([idx] = !privateKeyVisible[idx]))
-                  )
+                  setPrivateKeyVisible((prev) => ({
+                    ...prev,
+                    [idx]: !prev[idx], // Correctly toggle the visibility for this specific index
+                  }))
                 }
                 className='icon'
               />
