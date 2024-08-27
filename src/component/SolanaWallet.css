@@ -1,0 +1,43 @@
+.wallet-container{
+    border: grey 2px solid; 
+    display: flex;
+    flex-direction: column;
+    /* align-items: center;
+    justify-content: center; */
+    width: 70%;
+    padding: 15px;
+    border-radius: 5px;
+    h3{
+        margin-block: 5px;
+        margin-inline: 0;
+    }
+    h5{
+        margin: 0;
+    }
+    p{
+        margin: 0;
+    }
+}
+
+.wallet-box{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 20px;
+
+}
+
+.info{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+   .icon{
+    font-size: 22px;
+    color:  rgb(236, 119, 123);
+    cursor: pointer;
+   }
+   .icon:hover{
+    color:red;
+   }
+  }
