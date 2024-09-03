@@ -22,16 +22,18 @@ function Component() {
       </div>
 
       <div className='mnemonic'>
-        <h3>SECRET RECOVERY PHRASE</h3>
-        <h6>Save these words in a safe place.</h6>
+        <h3 style={{margin:0}} >SECRET RECOVERY PHRASE</h3>
+        <h6 style={{margin:0}}>Save these words in a safe place.</h6>
 
+        <div className="mnemonicContainer">
         <input
           type='text'
           placeholder='Generate your secret phrase '
           value={mnemonic}
           readOnly
         />
-        <button onClick={() => createSecretPhrase()}>Generate Mnemonic</button>
+        <button className="generateBtn" onClick={() => createSecretPhrase()}>Generate Mnemonic</button>
+        </div>
       </div>
 
       <div className='addWallet'>

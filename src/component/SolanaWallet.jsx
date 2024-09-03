@@ -9,11 +9,13 @@ import { MdDeleteOutline } from "react-icons/md";
 import { toast } from "react-toastify";
 
 import { FaRegEye } from "react-icons/fa";
+import Balance from "./balance";
 
 function SolanaWallet({ mnemonic }) {
   const [idx, setIdx] = useState(1);
   const [wallets, setWallets] = useState([]);
   const [privateKeyVisible, setPrivateKeyVisible] = useState({});
+  const [selectedWallet, setSelectedWallet] = useState(null);
   const generate = () => {
     if (!mnemonic) {
       toast.error("🦄 Please generate mnemonic first");
@@ -43,10 +45,13 @@ function SolanaWallet({ mnemonic }) {
     setWallets(updatedWallets);
     toast.warn("🦄 Wallet deleted successfully", {});
   };
-
+  const handleBalanceCheck = (publicKey) => {
+    setSelectedWallet(publicKey);
+  };
   return (
-    <>
-      Solana Wallet: <button onClick={() => generate()}> Add Wallet</button>
+    <div className="solana">
+      <div className="walletS">
+      <p>Solana Wallet:</p> <button  onClick={() => generate()}> Add Wallet</button></div>
       <div className='wallet-box'>
         {wallets.map((wallet, idx) => (
           <div className='wallet-container' key={idx}>
@@ -61,9 +66,9 @@ function SolanaWallet({ mnemonic }) {
             <h5>Public Key :</h5>
             <p>{wallet.publicKey.toBase58()}</p>
             <h5>Private Key:</h5>
-            <p>
-              {privateKeyVisible[idx] ? wallet.privateKeys : "***************"}
-              <FaRegEye
+            <p className="hide">
+              <p>{privateKeyVisible[idx] ? wallet.privateKeys : "*********************************"} </p>
+              <FaRegEye style={{cursor:"pointer"}}
                 onClick={() =>
                   setPrivateKeyVisible((prev) => ({
                     ...prev,
@@ -73,10 +78,16 @@ function SolanaWallet({ mnemonic }) {
                 className='icon'
               />
             </p>
+            <div className="balance">
+                <p>{selectedWallet && selectedWallet === wallet.publicKey && <Balance publicKey={selectedWallet} />} {/* Render the Balance component */}</p>
+                <button onClick={() => handleBalanceCheck(wallet.publicKey)}>
+                  Check Balance
+                </button>
+            </div>
           </div>
         ))}
       </div>
-    </>
+    </div>
   );
 }
 

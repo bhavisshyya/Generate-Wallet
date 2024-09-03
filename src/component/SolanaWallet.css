@@ -41,3 +41,25 @@
     color:red;
    }
   }
+  .solana{
+    padding: 0.4rem 1.5rem;
+   
+  }
+  .walletS{
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+    gap: 2rem;
+  }
+
+  .hide{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .balance{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    /* flex-direction: column; */
+  }
